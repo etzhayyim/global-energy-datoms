@@ -1,0 +1,16 @@
+{:queries
+ {:renewable-electricity-share-2022
+  {:args []
+   :query [:find '?country '?share
+           :in '$
+           :where ['?e :energy.observation/source :source/worldbank-wdi]
+                  ['?e :country/iso3 '?country]
+                  ['?e :energy.electricity/renewable-share-percent '?share]]}
+  :solar-generation-2024
+  {:args []
+   :query [:find '?country '?twh
+           :in '$
+           :where ['?e :energy.observation/source :source/our-world-in-data]
+                  ['?e :country/iso3 '?country]
+                  ['?e :energy.electricity/solar-twh '?twh]]}}
+ :usage "(require '[datascript.core :as d] '[clojure.edn :as edn]) (def db (d/db-with (d/empty-db (edn/read-string (slurp \"schema/energy.edn\"))) (edn/read-string (slurp \"data/datascript-tx.edn\")))) (d/q (:query (get-in (edn/read-string (slurp \"queries/examples.edn\")) [:queries :solar-generation-2024])) db)"}

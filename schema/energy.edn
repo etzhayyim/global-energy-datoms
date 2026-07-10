@@ -1,0 +1,19 @@
+{:energy.observation/id {:db/unique :db.unique/identity}
+ :energy.observation/source {:db/index true}
+ :energy.observation/release {:db/index true}
+ :country/iso3 {:db/index true}
+ :country/name {:db/index true}
+ :energy/year {:db/index true}
+ :energy.electricity/renewable-share-percent {}
+ :energy.electricity/fossil-share-percent {}
+ :energy.electricity/nuclear-share-percent {}
+ :energy.final/renewable-share-percent {}
+ :energy.electricity/solar-twh {}
+ :energy.electricity/wind-twh {}
+ :energy.electricity/hydropower-twh {}
+ :energy.electricity/nuclear-twh {}
+ :energy.electricity/coal-twh {}
+ :energy.electricity/gas-twh {}
+ :energy.electricity/oil-twh {}
+ :energy.electricity/bioenergy-twh {}
+ :energy.electricity/other-renewables-twh {}}
