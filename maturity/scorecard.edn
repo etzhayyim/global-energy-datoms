@@ -2,7 +2,7 @@
  :maturity/level :r3-ci-validated-contract
  :maturity/criteria
  [{:criterion :separate-source-datasets :status :met :evidence ["etzhayyim/jp.go.meti.enecho" "etzhayyim/org.worldbank.api" "etzhayyim/org.ourworldindata" "etzhayyim/org.un.unstats"]}
-  {:criterion :raw-integrity :status :met :evidence "各 source catalog に URL・観測年・SHA-256 を記録"}
+  {:criterion :raw-integrity :status :partial :evidence "通常Gitの原典はCIでSHA-256検証。B2 git-annex原典はCIでポインタ検証、実体fsckはB2認証を持つ保全環境で実行"}
   {:criterion :semantic-schema :status :met :evidence "schema/energy.edn"}
   {:criterion :provenance-per-observation :status :met :evidence [:energy.observation/source :energy.observation/release :energy/year]}
   {:criterion :datascript-query-verification :status :met :evidence "queries/examples.edn を Datascript db-with で実行"}
