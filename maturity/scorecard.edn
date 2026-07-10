@@ -1,5 +1,5 @@
 {:maturity/as-of "2026-07-10"
- :maturity/level :r2-cross-source-queryable
+ :maturity/level :r3-ci-validated-contract
  :maturity/criteria
  [{:criterion :separate-source-datasets :status :met :evidence ["etzhayyim/jp.go.meti.enecho" "etzhayyim/org.worldbank.api" "etzhayyim/org.ourworldindata" "etzhayyim/org.un.unstats"]}
   {:criterion :raw-integrity :status :met :evidence "各 source catalog に URL・観測年・SHA-256 を記録"}
@@ -8,5 +8,7 @@
   {:criterion :datascript-query-verification :status :met :evidence "queries/examples.edn を Datascript db-with で実行"}
   {:criterion :kotoba-eavt-export :status :met :evidence "data/global-energy.kotoba.edn"}
   {:criterion :consumer-contracts :status :met :evidence "connections/actors.edn"}
-  {:criterion :automated-refresh :status :partial :next "各 source の取得・ハッシュ検証・build をCIで定期実行する"}
+  {:criterion :locked-source-revisions :status :met :evidence "sources.lock.edn + contract.yml の immutable revision checkout"}
+  {:criterion :ci-contract-validation :status :met :evidence "GitHub Actions: source hash verification → deterministic build → generated diff gate → Datascript contract test"}
+  {:criterion :automated-refresh :status :partial :next "scheduled drift report を追加する。原典の自動上書き・自動公開は行わない。"}
   {:criterion :official-m49-iso3-crosswalk :status :partial :next "公式地理参照 source を追加し、UN SDG とISO3群を機械的に結合する"}]}

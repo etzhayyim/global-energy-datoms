@@ -1,0 +1,56 @@
+name: Global statistics contract
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: etzhayyim/jp.go.meti.enecho
+          ref: cc2d7e4f5400a1d6c06b6d8fa60345e37d8473b2
+          path: .sources/jp.go.meti.enecho
+      - uses: actions/checkout@v4
+        with:
+          repository: etzhayyim/org.worldbank.api
+          ref: 0869056d9baa7858c1da25e4e22324b7147cab05
+          path: .sources/org.worldbank.api
+      - uses: actions/checkout@v4
+        with:
+          repository: etzhayyim/org.ourworldindata
+          ref: c63c1aeaf654f125191b3ba25c01c4b78851dcef
+          path: .sources/org.ourworldindata
+      - uses: actions/checkout@v4
+        with:
+          repository: etzhayyim/org.un.unstats
+          ref: d55600e0884c32277fc19be205296c5764355e5c
+          path: .sources/org.un.unstats
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: babashka/setup-babashka@v1
+        with:
+          version: '1.12.212'
+      - uses: DeLaGuardo/setup-clojure@13.4
+        with:
+          cli: latest
+      - name: Verify archived source hashes
+        run: bb bin/verify-source-catalogs.clj .sources
+      - name: Verify CI source lock
+        run: bb bin/verify-ci-lock.clj
+      - name: Rebuild committed projections
+        run: bb bin/build.clj .sources
+      - name: Reject stale generated datoms
+        run: git diff --exit-code -- data
+      - name: Exercise Datascript query contract
+        run: clojure -M test/query_contract.clj

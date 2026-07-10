@@ -1,0 +1,7 @@
+{:lock/version 1
+ :lock/as-of "2026-07-10"
+ :sources
+ [{:source/id :source/jp-go-meti-enecho :repository "etzhayyim/jp.go.meti.enecho" :revision "cc2d7e4f5400a1d6c06b6d8fa60345e37d8473b2"}
+  {:source/id :source/worldbank-wdi :repository "etzhayyim/org.worldbank.api" :revision "0869056d9baa7858c1da25e4e22324b7147cab05"}
+  {:source/id :source/our-world-in-data :repository "etzhayyim/org.ourworldindata" :revision "c63c1aeaf654f125191b3ba25c01c4b78851dcef"}
+  {:source/id :source/un-sdg :repository "etzhayyim/org.un.unstats" :revision "d55600e0884c32277fc19be205296c5764355e5c"}]}
