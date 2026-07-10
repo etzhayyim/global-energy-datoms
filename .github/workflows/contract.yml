@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: etzhayyim/org.un.unstats
-          ref: d55600e0884c32277fc19be205296c5764355e5c
+          ref: 0bfe52c5e3296953d532327e163183cab7485f5e
           path: .sources/org.un.unstats
       - uses: actions/setup-node@v4
         with:

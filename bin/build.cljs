@@ -43,17 +43,24 @@
 (defn read-enecho []
   (let [series (edn/parse-string (slurp* (path enecho-root "derived/enecho-energy-timeseries.edn"))) row (first (filter #(= 2024 (:fy %)) (:series/observations series))) total (:generation-100m-kwh row)]
     [{:energy.observation/id "enecho-total-energy-2024-JPN" :energy.observation/source :source/jp-go-meti-enecho :energy.observation/release "2026-04-14" :country/iso3 "JPN" :country/name "Japan" :energy/year 2024 :energy.final/consumption-pj (:final-energy-pj row) :energy.electricity/generation-100m-kwh total :energy.electricity/thermal-excluding-biomass-share-percent (* 100 (/ (:thermal-excluding-biomass-100m-kwh row) total)) :energy.electricity/non-fossil-share-percent (* 100 (/ (:non-fossil-100m-kwh row) total)) :energy.electricity/renewables-including-hydro-share-percent (* 100 (/ (:renewables-including-hydro-100m-kwh row) total))}]))
-(defn read-unsdg []
+(defn read-m49->iso3 []
+  (into {} (map (juxt :geo/m49 :country/iso3)
+                (:crosswalk/entries
+                 (edn/parse-string (slurp* (path unsdg-root "derived/m49-iso3.edn")))))))
+(defn read-unsdg [m49->iso3]
   (reduce (fn [acc [filename attr filter-row]]
             (reduce (fn [a row] (let [m49 (:geoAreaCode row) v (:value row) year (int (:timePeriodStart row))]
                                   (if (and (re-matches #"[0-9]+" m49) (filter-row row) (not (str/blank? v)))
-                                    (update a [m49 year] merge {:energy.observation/id (entity-id "un-sdg" year m49) :energy.observation/source :source/un-sdg :energy.observation/release "2026-07-10" :geo/m49 m49 :country/name (:geoAreaName row) :energy/year year attr (value v)}) a))) acc (:data (json (path unsdg-root "raw/sdg" filename))))) {}
+                                    (update a [m49 year] merge {:energy.observation/id (entity-id "un-sdg" year m49) :energy.observation/source :source/un-sdg :energy.observation/release "2026-07-10" :geo/m49 m49 :country/name (:geoAreaName row) :energy/year year attr (value v)}
+                                            (when-let [iso3 (get m49->iso3 m49)]
+                                              {:country/iso3 iso3 :geo/crosswalk-source :source/un-m49-overview}))
+                                    a))) acc (:data (json (path unsdg-root "raw/sdg" filename))))) {}
           [["electricity-access-2022.json" :energy.access/electricity-percent #(= "ALLAREA" (get-in % [:dimensions :Location]))] ["renewable-final-energy-share-2022.json" :energy.final/renewable-share-percent (constantly true)]]))
 (defn datoms [entities tx] (vec (mapcat (fn [e] (for [[a v] (sort-by (comp str key) e)] [(:energy.observation/id e) a v tx :add])) (sort-by :energy.observation/id entities))))
 
-(let [wb (vals (read-wb)) owid (vals (read-owid)) enecho (read-enecho) unsdg (vals (read-unsdg)) entities (concat wb owid enecho unsdg) tx 20260710]
+(let [wb (vals (read-wb)) owid (vals (read-owid)) enecho (read-enecho) m49->iso3 (read-m49->iso3) unsdg (vals (read-unsdg m49->iso3)) entities (concat wb owid enecho unsdg) tx 20260710]
   (.mkdirSync fs "data" #js {:recursive true})
   (write! "data/datascript-tx.edn" (vec entities))
   (write! "data/global-energy.kotoba.edn" {:datom/format :eavt :datom/tx tx :datom/rows (datoms entities tx)})
-  (write! "data/provenance.edn" {:build/as-of "2026-07-10" :sources [{:source/id :source/worldbank-wdi :source/repo "etzhayyim/org.worldbank.api" :source/entities (count wb) :source/year 2022} {:source/id :source/our-world-in-data :source/repo "etzhayyim/org.ourworldindata" :source/entities (count owid) :source/year 2024} {:source/id :source/jp-go-meti-enecho :source/repo "etzhayyim/jp.go.meti.enecho" :source/entities (count enecho) :source/year 2024} {:source/id :source/un-sdg :source/repo "etzhayyim/org.un.unstats" :source/entities (count unsdg) :source/year 2022}]})
+  (write! "data/provenance.edn" {:build/as-of "2026-07-10" :sources [{:source/id :source/worldbank-wdi :source/repo "etzhayyim/org.worldbank.api" :source/entities (count wb) :source/year 2022} {:source/id :source/our-world-in-data :source/repo "etzhayyim/org.ourworldindata" :source/entities (count owid) :source/year 2024} {:source/id :source/jp-go-meti-enecho :source/repo "etzhayyim/jp.go.meti.enecho" :source/entities (count enecho) :source/year 2024} {:source/id :source/un-sdg :source/repo "etzhayyim/org.un.unstats" :source/entities (count unsdg) :source/year 2022} {:source/id :source/un-m49-overview :source/repo "etzhayyim/org.un.unstats" :source/entities (count m49->iso3) :source/role :geo-crosswalk}]})
   (println (str "built " (count wb) " WDI, " (count owid) " OWID, " (count enecho) " Eneqcho, and " (count unsdg) " UN SDG observations")))

@@ -28,6 +28,6 @@
   {:consumer/id "any-datascript-or-kotoba-repository"
    :consumer/kind :open-data-consumer
    :consumer/use "schema/energy.edn と data/datascript-tx.edn、または data/global-energy.kotoba.edn を read-only import する。"
-   :consumer/query :un-sdg-electricity-access-2022
+   :consumer/query :un-sdg-electricity-access-by-iso3-2022
    :consumer/required-provenance [:energy.observation/source :energy.observation/release :energy/year]}]
  :connections/invariant "統計値は比較・分析専用。観測値だけから設備を自動制御、契約を確定、または個人を評価しない。"}

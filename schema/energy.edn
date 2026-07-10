@@ -4,6 +4,7 @@
  :country/iso3 {:db/index true}
  :country/name {:db/index true}
  :geo/m49 {:db/index true}
+ :geo/crosswalk-source {:db/index true}
  :energy/year {:db/index true}
  :energy.electricity/renewable-share-percent {}
  :energy.electricity/fossil-share-percent {}

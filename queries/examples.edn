@@ -27,6 +27,14 @@
            :where [?e :energy.observation/source :source/un-sdg]
                   [?e :geo/m49 ?m49]
                   [?e :energy.access/electricity-percent ?percent]]}
+  :un-sdg-electricity-access-by-iso3-2022
+  {:args []
+   :query [:find ?country ?percent
+           :in $
+           :where [?e :energy.observation/source :source/un-sdg]
+                  [?e :country/iso3 ?country]
+                  [?e :geo/crosswalk-source :source/un-m49-overview]
+                  [?e :energy.access/electricity-percent ?percent]]}
   :population-and-life-expectancy-2022
   {:args []
    :query [:find ?country ?population ?years
