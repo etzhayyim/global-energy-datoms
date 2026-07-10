@@ -1,0 +1,12 @@
+{:maturity/as-of "2026-07-10"
+ :maturity/level :r2-cross-source-queryable
+ :maturity/criteria
+ [{:criterion :separate-source-datasets :status :met :evidence ["etzhayyim/jp.go.meti.enecho" "etzhayyim/org.worldbank.api" "etzhayyim/org.ourworldindata" "etzhayyim/org.un.unstats"]}
+  {:criterion :raw-integrity :status :met :evidence "各 source catalog に URL・観測年・SHA-256 を記録"}
+  {:criterion :semantic-schema :status :met :evidence "schema/energy.edn"}
+  {:criterion :provenance-per-observation :status :met :evidence [:energy.observation/source :energy.observation/release :energy/year]}
+  {:criterion :datascript-query-verification :status :met :evidence "queries/examples.edn を Datascript db-with で実行"}
+  {:criterion :kotoba-eavt-export :status :met :evidence "data/global-energy.kotoba.edn"}
+  {:criterion :consumer-contracts :status :met :evidence "connections/actors.edn"}
+  {:criterion :automated-refresh :status :partial :next "各 source の取得・ハッシュ検証・build をCIで定期実行する"}
+  {:criterion :official-m49-iso3-crosswalk :status :partial :next "公式地理参照 source を追加し、UN SDG とISO3群を機械的に結合する"}]}

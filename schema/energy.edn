@@ -23,4 +23,8 @@
  :energy.electricity/thermal-excluding-biomass-share-percent {}
  :energy.electricity/non-fossil-share-percent {}
  :energy.electricity/renewables-including-hydro-share-percent {}
- :energy.access/electricity-percent {}}
+ :energy.access/electricity-percent {}
+ :demography/population-total {}
+ :economy/gdp-per-capita-current-usd {}
+ :health/life-expectancy-at-birth-years {}
+ :connectivity/internet-users-percent {}}

@@ -17,7 +17,11 @@
   [["renewable-electricity-share-2021.json" :energy.electricity/renewable-share-percent]
    ["fossil-electricity-share-2022.json" :energy.electricity/fossil-share-percent]
    ["nuclear-electricity-share-2022.json" :energy.electricity/nuclear-share-percent]
-   ["renewable-final-energy-share-2022.json" :energy.final/renewable-share-percent]])
+   ["renewable-final-energy-share-2022.json" :energy.final/renewable-share-percent]
+   ["population-2022.json" :demography/population-total]
+   ["gdp-per-capita-current-usd-2022.json" :economy/gdp-per-capita-current-usd]
+   ["life-expectancy-2022.json" :health/life-expectancy-at-birth-years]
+   ["internet-users-percent-2022.json" :connectivity/internet-users-percent]])
 
 (def owid-columns
   {"Other renewables" :energy.electricity/other-renewables-twh

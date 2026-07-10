@@ -26,5 +26,14 @@
            :in $
            :where [?e :energy.observation/source :source/un-sdg]
                   [?e :geo/m49 ?m49]
-                  [?e :energy.access/electricity-percent ?percent]]}}
+                  [?e :energy.access/electricity-percent ?percent]]}
+  :population-and-life-expectancy-2022
+  {:args []
+   :query [:find ?country ?population ?years
+           :in $
+           :where [?e :energy.observation/source :source/worldbank-wdi]
+                  [?e :country/iso3 ?country]
+                  [?e :energy/year 2022]
+                  [?e :demography/population-total ?population]
+                  [?e :health/life-expectancy-at-birth-years ?years]]}}
  :usage "(require '[datascript.core :as d] '[clojure.edn :as edn]) (def db (d/db-with (d/empty-db (edn/read-string (slurp \"schema/energy.edn\"))) (edn/read-string (slurp \"data/datascript-tx.edn\")))) (d/q (:query (get-in (edn/read-string (slurp \"queries/examples.edn\")) [:queries :solar-generation-2024])) db)"}

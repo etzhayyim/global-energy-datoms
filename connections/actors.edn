@@ -15,6 +15,16 @@
    :consumer/use "石油・ガス・石炭発電量と最終消費の比較、化石依存の公開分析に用いる。"
    :consumer/query :renewable-electricity-share-2022
    :consumer/required-provenance [:energy.observation/source :energy.year :country/iso3]}
+  {:consumer/id "etzhayyim/com-etzhayyim-hagukumi"
+   :consumer/kind :care-wellbecoming-actor
+   :consumer/use "人口・平均寿命・電力アクセスを、地域集計のサービス容量検討に使う。個人の健康評価や適格性判定には使用しない。"
+   :consumer/query :population-and-life-expectancy-2022
+   :consumer/required-provenance [:energy.observation/source :energy.year :country/iso3]}
+  {:consumer/id "etzhayyim/com-etzhayyim-talent"
+   :consumer/kind :public-interest-talent-actor
+   :consumer/use "人口・インターネット利用率・国別所得を、デジタル到達可能性の集計的背景として読む。個人の雇用順位付けには使用しない。"
+   :consumer/query :population-and-life-expectancy-2022
+   :consumer/required-provenance [:energy.observation/source :energy.year :country/iso3]}
   {:consumer/id "any-datascript-or-kotoba-repository"
    :consumer/kind :open-data-consumer
    :consumer/use "schema/energy.edn と data/datascript-tx.edn、または data/global-energy.kotoba.edn を read-only import する。"
