@@ -1,5 +1,5 @@
 {:maturity/as-of "2026-07-10"
- :maturity/level :r6-consumer-ready
+ :maturity/level :r7-quality-observable
  :maturity/criteria
  [{:criterion :separate-source-datasets :status :met :evidence ["etzhayyim/jp.go.meti.enecho" "etzhayyim/org.worldbank.api" "etzhayyim/org.ourworldindata" "etzhayyim/org.un.unstats"]}
   {:criterion :raw-integrity :status :partial :evidence "通常Gitの原典はCIでSHA-256検証。B2 git-annex原典はCIでポインタ検証、実体fsckはB2認証を持つ保全環境で実行"}
@@ -12,4 +12,5 @@
   {:criterion :ci-contract-validation :status :met :evidence "GitHub Actions: source hash verification → deterministic build → generated diff gate → Datascript contract test"}
   {:criterion :automated-refresh :status :met :evidence ".github/workflows/upstream-drift.yml。週次のread-only drift reportで、raw・lock・公開物を自動更新しない"}
   {:criterion :read-only-consumer-adapter :status :met :evidence "adapters/read_only.clj + connections/actors.edn"}
+  {:criterion :coverage-quality-gate :status :met :evidence "data/quality-report.edn + query_contract.clj。出典別ISO3件数・UN公式crosswalk・必須provenanceを下限検証"}
   {:criterion :official-m49-iso3-crosswalk :status :met :evidence "org.un.unstats/raw/m49/overview-en.html → derived/m49-iso3.edn。UN SDG entityへ :country/iso3 を付与"}]}

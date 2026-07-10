@@ -52,6 +52,8 @@ jobs:
         run: npx nbb bin/verify-ci-lock.cljs
       - name: Rebuild committed projections
         run: npx nbb bin/build.cljs .sources
+      - name: Build coverage-quality report
+        run: npx nbb bin/build-quality-report.cljs
       - name: Reject stale generated datoms
         run: git diff --exit-code -- data
       - name: Exercise Datascript query contract

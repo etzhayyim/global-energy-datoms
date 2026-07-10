@@ -6,6 +6,7 @@
 - `data/datascript-tx.edn` は Datascript に直接 `db-with` できる entity map 群。
 - `data/global-energy.kotoba.edn` は Kotoba 互換の `[e a v tx :add]` EAVT。
 - `data/provenance.edn` は source repo・release・件数。
+- `data/quality-report.edn` は出典別 ISO3 coverage・必須 provenance・下限値の決定的レポート。
 - `coverage/registry.edn` は出典ごとの地理・年・指標 coverage と安全な結合キー。
 - `connections/actors.edn` は actor／他リポジトリごとの read-only 接続契約。
 - `adapters/read_only.clj` は公開済み query だけを実行する Datascript consumer adapter。
