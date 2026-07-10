@@ -16,7 +16,6 @@
   :japan-official-non-fossil-share-2024
   {:args []
    :query [:find ?share .
-           :in $
            :where [?e :energy.observation/source :source/jp-go-meti-enecho]
                   [?e :country/iso3 "JPN"]
                   [?e :energy.year 2024]
