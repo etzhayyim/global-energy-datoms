@@ -12,5 +12,13 @@
            :in $
            :where [?e :energy.observation/source :source/our-world-in-data]
                   [?e :country/iso3 ?country]
-                  [?e :energy.electricity/solar-twh ?twh]]}}
+                  [?e :energy.electricity/solar-twh ?twh]]}
+  :japan-official-non-fossil-share-2024
+  {:args []
+   :query [:find ?share .
+           :in $
+           :where [?e :energy.observation/source :source/jp-go-meti-enecho]
+                  [?e :country/iso3 "JPN"]
+                  [?e :energy.year 2024]
+                  [?e :energy.electricity/non-fossil-share-percent ?share]]}}
  :usage "(require '[datascript.core :as d] '[clojure.edn :as edn]) (def db (d/db-with (d/empty-db (edn/read-string (slurp \"schema/energy.edn\"))) (edn/read-string (slurp \"data/datascript-tx.edn\")))) (d/q (:query (get-in (edn/read-string (slurp \"queries/examples.edn\")) [:queries :solar-generation-2024])) db)"}

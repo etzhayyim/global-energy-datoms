@@ -16,4 +16,9 @@
  :energy.electricity/gas-twh {}
  :energy.electricity/oil-twh {}
  :energy.electricity/bioenergy-twh {}
- :energy.electricity/other-renewables-twh {}}
+ :energy.electricity/other-renewables-twh {}
+ :energy.final/consumption-pj {}
+ :energy.electricity/generation-100m-kwh {}
+ :energy.electricity/thermal-excluding-biomass-share-percent {}
+ :energy.electricity/non-fossil-share-percent {}
+ :energy.electricity/renewables-including-hydro-share-percent {}}
