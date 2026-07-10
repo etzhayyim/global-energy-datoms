@@ -18,7 +18,7 @@
    :query [:find ?share .
            :where [?e :energy.observation/source :source/jp-go-meti-enecho]
                   [?e :country/iso3 "JPN"]
-                  [?e :energy.year 2024]
+                  [?e :energy/year 2024]
                   [?e :energy.electricity/non-fossil-share-percent ?share]]}
   :un-sdg-electricity-access-2022
   {:args []
