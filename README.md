@@ -6,6 +6,8 @@
 - `data/datascript-tx.edn` は Datascript に直接 `db-with` できる entity map 群。
 - `data/global-energy.kotoba.edn` は Kotoba 互換の `[e a v tx :add]` EAVT。
 - `data/provenance.edn` は source repo・release・件数。
+- `coverage/registry.edn` は出典ごとの地理・年・指標 coverage と安全な結合キー。
+- `connections/actors.edn` は actor／他リポジトリごとの read-only 接続契約。
 
 再生成は、同階層の `org.worldbank.api` と `org.ourworldindata` を取得後、`bb bin/build.clj ..` を実行する。入力の raw snapshot は各 source dataset の annex 管理対象であり、ビルドはネットワークへアクセスしない。
 

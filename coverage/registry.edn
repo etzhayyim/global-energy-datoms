@@ -1,0 +1,9 @@
+{:coverage/as-of "2026-07-10"
+ :coverage/sources
+ [{:source/id :source/jp-go-meti-enecho :coverage/geography :japan :coverage/latest-year 2024 :coverage/metrics [:energy.final/consumption-pj :energy.electricity/generation-100m-kwh :energy.electricity/non-fossil-share-percent]}
+  {:source/id :source/worldbank-wdi :coverage/geography :global :coverage/latest-years {:energy.electricity/renewable-share-percent 2021 :energy.electricity/fossil-share-percent 2022 :energy.electricity/nuclear-share-percent 2022 :energy.final/renewable-share-percent 2022} :coverage/country-observations 500}
+  {:source/id :source/our-world-in-data :coverage/geography :global :coverage/latest-year 2024 :coverage/country-observations 190 :coverage/metrics [:energy.electricity/solar-twh :energy.electricity/wind-twh :energy.electricity/hydropower-twh :energy.electricity/coal-twh :energy.electricity/gas-twh]}
+  {:source/id :source/un-sdg :coverage/geography :global :coverage/latest-year 2022 :coverage/country-observations 274 :coverage/metrics [:energy.access/electricity-percent :energy.final/renewable-share-percent] :coverage/geography-key :geo/m49}]
+ :coverage/join-policy {:iso3 [:source/worldbank-wdi :source/our-world-in-data :source/jp-go-meti-enecho]
+                        :m49 [:source/un-sdg]
+                        :rule "M49とISO3の変換は公式ISO/UN地理参照を別 source として追加するまで、国名文字列で自動結合しない。"}}

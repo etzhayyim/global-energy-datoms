@@ -1,0 +1,23 @@
+{:connections/version 1
+ :connections/consumers
+ [{:consumer/id "etzhayyim/com-etzhayyim-hikari"
+   :consumer/kind :energy-generation-actor
+   :consumer/use "国別・地域別の再エネ比率、電源別発電量を、設備導入の外部ベースラインとして読む。個別地点の設計値や運転指令には使わない。"
+   :consumer/query :renewable-electricity-share-2022
+   :consumer/required-provenance [:energy.observation/source :energy.observation/release :energy/year]}
+  {:consumer/id "cloud-itonami/cloud-itonami-isic-3512"
+   :consumer/kind :community-energy-operator
+   :consumer/use "系統接続・精算に関する法域別一次根拠とは分離した、比較・説明用の国別電源構成として読む。バッテリー dispatch や精算の入力値には用いない。"
+   :consumer/query :solar-generation-2024
+   :consumer/required-provenance [:energy.observation/source :energy.year :country/iso3]}
+  {:consumer/id "etzhayyim/com-etzhayyim-oil-coverage"
+   :consumer/kind :public-interest-coverage-actor
+   :consumer/use "石油・ガス・石炭発電量と最終消費の比較、化石依存の公開分析に用いる。"
+   :consumer/query :renewable-electricity-share-2022
+   :consumer/required-provenance [:energy.observation/source :energy.year :country/iso3]}
+  {:consumer/id "any-datascript-or-kotoba-repository"
+   :consumer/kind :open-data-consumer
+   :consumer/use "schema/energy.edn と data/datascript-tx.edn、または data/global-energy.kotoba.edn を read-only import する。"
+   :consumer/query :un-sdg-electricity-access-2022
+   :consumer/required-provenance [:energy.observation/source :energy.observation/release :energy/year]}]
+ :connections/invariant "統計値は比較・分析専用。観測値だけから設備を自動制御、契約を確定、または個人を評価しない。"}

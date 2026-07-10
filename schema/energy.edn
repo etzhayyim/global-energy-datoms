@@ -3,6 +3,7 @@
  :energy.observation/release {:db/index true}
  :country/iso3 {:db/index true}
  :country/name {:db/index true}
+ :geo/m49 {:db/index true}
  :energy/year {:db/index true}
  :energy.electricity/renewable-share-percent {}
  :energy.electricity/fossil-share-percent {}
@@ -21,4 +22,5 @@
  :energy.electricity/generation-100m-kwh {}
  :energy.electricity/thermal-excluding-biomass-share-percent {}
  :energy.electricity/non-fossil-share-percent {}
- :energy.electricity/renewables-including-hydro-share-percent {}}
+ :energy.electricity/renewables-including-hydro-share-percent {}
+ :energy.access/electricity-percent {}}
