@@ -1,13 +1,12 @@
 (require '[clojure.edn :as edn]
-         '[datascript.core :as d]
+         '[adapters.datalog-runtime :as dr]
          '[adapters.read-only :as read-only])
 
-(let [schema (edn/read-string (slurp "schema/energy.edn"))
-      tx (edn/read-string (slurp "data/datascript-tx.edn"))
+(let [tx (edn/read-string (slurp "data/datascript-tx.edn"))
       quality (edn/read-string (slurp "data/quality-report.edn"))
       queries (:queries (edn/read-string (slurp "queries/examples.edn")))
-      db (d/db-with (d/empty-db schema) tx)
-      run #(d/q (:query (get queries %)) db)]
+      db (dr/db tx)
+      run #(dr/q (:query (get queries %)) db)]
   (assert (>= (count tx) 900) "global observation coverage unexpectedly shrank")
   (assert (zero? (:quality/missing-required-provenance quality)) "required provenance missing")
   (assert (>= (get-in quality [:quality/sources :source/worldbank-wdi :with-iso3]) 450) "WDI ISO3 coverage missing")
