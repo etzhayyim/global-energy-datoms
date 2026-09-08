@@ -1,6 +1,6 @@
 #!/usr/bin/env nbb
 (ns build
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [edamame.core :as edn]))
 
 (def fs (js/require "fs"))
